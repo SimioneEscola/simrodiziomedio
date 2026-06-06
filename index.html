@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EFAF · Plataformas & Dispositivos</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8fafc;--white:#fff;--navy:#0f172a;--slate:#334155;--muted:#64748b;
+  --border:#e2e8f0;--border2:#f1f5f9;
+  --fix:#059669;--fix-bg:#ecfdf5;--fix-bd:#a7f3d0;
+  --sa:#7c3aed;--sa-bg:#f5f3ff;--sa-bd:#ddd6fe;
+  --sb:#d97706;--sb-bg:#fffbeb;--sb-bd:#fde68a;
+  --err:#dc2626;--err-bg:#fef2f2;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--navy);font-size:13px;line-height:1.5;min-height:100vh}
+
+/* ─ TOP ─ */
+#bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;height:52px;
+  display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;
+  box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.bl{display:flex;align-items:center;gap:9px}
+.bdot{width:7px;height:7px;border-radius:50%;background:var(--navy)}
+.btitle{font-size:14px;font-weight:600;letter-spacing:-.2px}
+.bsub{font-size:11px;color:var(--muted)}
+.bsep{color:var(--border);font-size:14px}
+.br-side{display:flex;align-items:center;gap:8px}
+.wkpill{display:flex;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:22px;padding:2px 3px;gap:1px}
+.wkpill span{font-size:10.5px;color:var(--muted);padding:0 7px;font-weight:500}
+.wkb{border:none;background:transparent;cursor:pointer;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;padding:4px 13px;border-radius:18px;transition:all .15s;letter-spacing:.3px}
+#btnA.on{background:var(--sa);color:#fff}#btnB.on{background:var(--sb);color:#fff}
+#btnA,#btnB{color:var(--muted)}
+.iconbtn{border:1px solid var(--border);background:var(--white);border-radius:7px;padding:5px 11px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;cursor:pointer;color:var(--slate);display:flex;align-items:center;gap:5px;transition:all .15s}
+.iconbtn:hover{border-color:var(--slate)}
+
+/* ─ NAV ─ */
+#nav{background:var(--white);border-bottom:1px solid var(--border);display:flex;padding:0 24px;position:sticky;top:52px;z-index:100;overflow-x:auto}
+.ntab{border:none;background:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;padding:10px 13px;color:var(--muted);border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+.ntab:hover{color:var(--slate)}.ntab.on{color:var(--navy);border-bottom-color:var(--navy);font-weight:600}
+
+/* ─ MAIN ─ */
+#main{max-width:1440px;margin:0 auto;padding:22px 24px}
+.sec{display:none}.sec.on{display:block;animation:up .18s ease}
+@keyframes up{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.stitle{font-size:17px;font-weight:700;letter-spacing:-.3px;margin-bottom:2px}
+.ssub{font-size:12px;color:var(--muted);margin-bottom:16px}
+
+/* ─ MODAL ─ */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:500;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--white);border-radius:12px;padding:24px;width:480px;max-width:95vw;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.modal-title{font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.modal-close{border:none;background:none;cursor:pointer;font-size:18px;color:var(--muted);padding:2px 6px;border-radius:4px}
+.modal-close:hover{background:var(--bg)}
+
+/* ─ FORMS ─ */
+.field{margin-bottom:12px}
+.field label{display:block;font-size:11.5px;font-weight:600;color:var(--slate);margin-bottom:4px}
+.field input,.field select{width:100%;border:1px solid var(--border);border-radius:7px;padding:7px 10px;font-family:'Inter',sans-serif;font-size:13px;color:var(--navy);background:var(--white);outline:none;transition:border .15s}
+.field input:focus,.field select:focus{border-color:var(--navy)}
+.field-row{display:flex;gap:10px}.field-row .field{flex:1}
+
+/* ─ BUTTONS ─ */
+.btn{border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;border-radius:7px;padding:7px 16px;font-size:12.5px;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.btn-dark{background:var(--navy);color:#fff}.btn-dark:hover{background:var(--slate)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--slate)}.btn-outline:hover{border-color:var(--navy);color:var(--navy)}
+.btn-red{background:#fee2e2;color:#dc2626;border:1px solid #fecaca}.btn-red:hover{background:#fecaca}
+.btn-green{background:var(--fix-bg);color:var(--fix);border:1px solid var(--fix-bd)}.btn-green:hover{background:var(--fix-bd)}
+.btn-sm{padding:4px 10px;font-size:11px}
+
+/* ─ CARDS ─ */
+.card{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.ch{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ct{font-size:13px;font-weight:600;color:var(--navy)}
+.cb{padding:14px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+
+/* ─ STATS ROW ─ */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px}
+.stat{background:var(--white);border:1px solid var(--border);border-radius:9px;padding:13px 15px}
+.sv{font-size:24px;font-weight:700;letter-spacing:-1px}.sl{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+
+/* ─ BANNER ─ */
+.bann{border-radius:9px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.bann.a{background:var(--sa-bg);border:1px solid var(--sa-bd)}.bann.b{background:var(--sb-bg);border:1px solid var(--sb-bd)}
+.bann-tag{border-radius:4px;padding:2px 9px;font-size:10px;font-weight:700;letter-spacing:.4px;flex-shrink:0;margin-top:1px}
+.bann.a .bann-tag{background:var(--sa);color:#fff}.bann.b .bann-tag{background:var(--sb);color:#fff}
+.bann-t{font-size:13px;font-weight:600;margin-bottom:2px}.bann-s{font-size:11.5px;color:var(--muted)}
+.bann-pills{display:flex;flex-wrap:wrap;gap:3px;margin-left:auto;align-items:center}
+.bp{border-radius:14px;padding:2px 8px;font-size:10.5px;font-weight:600;border:1px solid}
+.bp.a{background:var(--sa-bg);color:var(--sa);border-color:var(--sa-bd)}.bp.b{background:var(--sb-bg);color:var(--sb);border-color:var(--sb-bd)}
+
+/* ─ SCHEDULE TABLE ─ */
+.twrap{overflow-x:auto;border-radius:9px;border:1px solid var(--border);background:var(--white)}
+.tbl{width:100%;border-collapse:collapse;font-size:10.5px}
+.tbl th{padding:8px 5px;text-align:center;font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);background:var(--bg)}
+.tbl td{border-bottom:1px solid var(--border2);padding:3px;vertical-align:middle;min-width:80px}
+.tbl tr:last-child td{border-bottom:none}.tbl tr:hover td{background:#fafbff}
+.pcell{background:var(--bg)!important;font-size:9px;font-weight:600;color:var(--muted);text-align:center;min-width:64px!important;padding:4px!important}
+.ev{border-radius:4px;padding:3px 5px;min-height:36px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.ev-fix{background:var(--fix-bg);border-left:2px solid var(--fix)}
+.ev-a{background:var(--sa-bg);border-left:2px solid var(--sa)}
+.ev-b{background:var(--sb-bg);border-left:2px solid var(--sb)}
+.ev-fix-a{background:linear-gradient(135deg,var(--fix-bg) 55%,var(--sa-bg) 55%);border-left:2px solid var(--fix)}
+.ev-fix-b{background:linear-gradient(135deg,var(--fix-bg) 55%,var(--sb-bg) 55%);border-left:2px solid var(--fix)}
+.ev-name{font-weight:700;font-size:10px;color:var(--navy)}.ev-tc{font-size:9px;color:var(--muted);margin-top:1px}
+.ev-tags{display:flex;flex-wrap:wrap;gap:2px;margin-top:2px}
+.ev-tag{font-size:7.5px;font-weight:700;border-radius:2px;padding:1px 3px;color:#fff}
+.ev-conf{outline:2px solid var(--err);outline-offset:-1px}
+.ev-conf::after{content:'⚠';font-size:6px;position:absolute;top:1px;right:2px;color:var(--err)}
+.lunch{border-radius:4px;text-align:center;font-size:9px;color:#92400e;font-weight:500;padding:3px;min-height:36px;display:flex;align-items:center;justify-content:center;background:#fffbeb;font-style:italic}
+
+/* ─ LEG ─ */
+.leg{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.li{display:flex;align-items:center;gap:4px;font-size:10.5px;color:var(--muted);font-weight:500}
+.ld{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+
+/* ─ DAY NAV ─ */
+.daynav{display:flex;gap:3px;margin-bottom:14px;flex-wrap:wrap}
+.dtab{border:1px solid var(--border);background:var(--white);border-radius:6px;padding:5px 13px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;cursor:pointer;color:var(--muted);transition:all .14s}
+.dtab.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ─ NOTE ─ */
+.note{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:10px 12px;font-size:11.5px;color:var(--slate);margin-bottom:12px}
+
+/* ─ DIST TABLE ─ */
+.dtbl{width:100%;border-collapse:collapse;font-size:11px}
+.dtbl th{background:var(--navy);color:#fff;padding:7px 10px;text-align:left;font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.dtbl td{padding:7px 10px;border-bottom:1px solid var(--border2);vertical-align:middle}
+.dtbl tr:last-child td{border-bottom:none}.dtbl tr:hover td{background:var(--bg)}
+.rooms-dots{display:flex;gap:2px;align-items:center;flex-wrap:wrap}
+.rdot{width:13px;height:13px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:6.5px;font-weight:800;color:#fff;flex-shrink:0}
+
+/* ─ ROOM CARDS ─ */
+.rcard{border-radius:9px;overflow:hidden;border:1px solid var(--border)}
+.rhdr{padding:8px 13px;display:flex;align-items:center;gap:7px;color:#fff;font-size:12px;font-weight:600}
+.rbd{padding:10px}
+.rev{border-radius:4px;padding:5px 8px;margin-bottom:4px;font-size:10.5px;border:1px solid rgba(0,0,0,.07)}
+.rev-hd{font-weight:700;color:var(--navy)}.rev-sub{font-size:9.5px;color:var(--muted);margin-top:1px}
+
+/* ─ PROGRESS ─ */
+.pr{margin-bottom:9px}
+.prh{display:flex;justify-content:space-between;margin-bottom:3px;font-size:11px}
+.prl{font-weight:600;color:var(--slate)}.prv{font-weight:700;color:var(--navy);font-family:monospace}
+.prb{height:5px;background:var(--border2);border-radius:3px;overflow:hidden}
+.prf{height:100%;border-radius:3px;transition:width .5s}
+
+/* ─ CONFLICT ─ */
+.cfl{background:var(--err-bg);border:1px solid #fecaca;border-radius:6px;padding:9px 12px;margin-bottom:7px;font-size:11px}
+.cfl-hd{font-weight:700;color:var(--err);margin-bottom:3px}
+
+/* ─ DEVICE SECTION ─ */
+.dev-type-btn{border:1px solid var(--border);background:var(--white);border-radius:7px;padding:8px 14px;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;transition:all .15s}
+.dev-type-btn.on{border-color:var(--navy);background:var(--bg);color:var(--navy)}
+.dev-type-btn:hover{border-color:var(--slate)}
+.dev-type-icon{font-size:22px}
+.dev-type-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.dev-item{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.dev-icon{font-size:22px;flex-shrink:0}
+.dev-badge{border-radius:5px;padding:2px 7px;font-size:10px;font-weight:700}
+.dev-status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dev-map-room{border-radius:9px;border:2px solid;padding:12px;margin-bottom:12px}
+.dev-map-devices{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.dev-chip{border-radius:5px;padding:4px 9px;font-size:10.5px;font-weight:600;display:flex;align-items:center;gap:4px;cursor:pointer}
+/* usage log */
+.ulog-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border2)}
+.ulog-row:last-child{border-bottom:none}
+.ulog-time{font-size:10px;color:var(--muted);font-family:monospace;flex-shrink:0;padding-top:1px;min-width:80px}
+.ulog-icon{font-size:16px;flex-shrink:0}
+.ulog-info{flex:1}
+.ulog-title{font-size:12px;font-weight:600;color:var(--navy)}
+.ulog-sub{font-size:11px;color:var(--muted)}
+/* timeline */
+.tl-grid{display:grid;grid-template-columns:80px repeat(5,1fr);gap:2px;font-size:10px}
+.tl-hd{font-weight:600;color:var(--muted);padding:4px;text-align:center}
+.tl-per{font-weight:600;color:var(--slate);padding:4px;display:flex;align-items:center}
+.tl-cell{border-radius:4px;min-height:36px;padding:3px;cursor:pointer;transition:all .15s}
+.tl-cell:hover{filter:brightness(.92)}
+
+/* ─ PLAN TAB ─ */
+.plan-sec{margin-bottom:24px}
+.plan-sec-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--navy);display:flex;align-items:center;gap:8px}
+.plan-principle{background:var(--white);border:1px solid var(--border);border-radius:9px;padding:14px 16px;margin-bottom:9px;display:flex;gap:12px}
+.plan-p-icon{font-size:26px;flex-shrink:0}
+.plan-p-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:3px}
+.plan-p-text{font-size:12px;color:var(--slate);line-height:1.65}
+.plan-p-tag{display:inline-block;border-radius:4px;padding:1px 7px;font-size:10px;font-weight:700;margin-right:3px;margin-top:4px}
+.plan-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.plan-tbl th{background:var(--navy);color:#fff;padding:9px 12px;text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.plan-tbl td{padding:9px 12px;border-bottom:1px solid var(--border2);vertical-align:top}
+.plan-tbl tr:last-child td{border-bottom:none}.plan-tbl tr:hover td{background:var(--bg)}
+.goal-card{border-radius:9px;padding:14px;border:1px solid;margin-bottom:10px}
+.goal-num{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.goal-title{font-size:14px;font-weight:700;margin-bottom:4px}
+.goal-text{font-size:12px;color:var(--slate);line-height:1.6}
+.chip{display:inline-block;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:600}
+
+/* ─ ANALYSIS ─ */
+.dev-stat-card{background:var(--white);border:1px solid var(--border);border-radius:9px;padding:14px;display:flex;align-items:center;gap:12px}
+.dev-stat-icon{font-size:28px}
+.dev-stat-v{font-size:22px;font-weight:700;color:var(--navy)}
+.dev-stat-l{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;margin-top:1px}
+
+/* ─ ROT TABLE ─ */
+.rott{width:100%;border-collapse:collapse;font-size:11.5px}
+.rott th{text-align:left;padding:7px 10px;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);background:var(--bg)}
+.rott td{padding:8px 10px;border-bottom:1px solid var(--border2);vertical-align:middle}
+.rott tr:last-child td{border-bottom:none}.rott tr:hover td{background:var(--bg)}
+
+@media(max-width:900px){.stats,.g3,.g4,.g5{grid-template-columns:1fr 1fr}.g2{grid-template-columns:1fr}#main{padding:14px 12px}#bar,#nav{padding-left:12px;padding-right:12px}}
+@media print{#bar,#nav{display:none!important}.sec{display:block!important;margin-bottom:28px}body{background:#fff}}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="bar">
+  <div class="bl">
+    <div class="bdot"></div>
+    <span class="btitle">EE Prof. Luiz Simioni Sobrinho · EFAF</span>
+    <span class="bsep">·</span>
+    <span class="bsub">Plataformas Digitais · Tarefas SP · Dispositivos</span>
+  </div>
+  <div class="br-side">
+    <span id="topDate" style="font-size:10.5px;color:var(--muted)"></span>
+    <div class="wkpill">
+      <span>Semana</span>
+      <button class="wkb on" id="btnA" onclick="setWeek('A')">A</button>
+      <button class="wkb" id="btnB" onclick="setWeek('B')">B</button>
+    </div>
+    <button class="iconbtn" onclick="openSettings()">⚙ Salas</button>
+    <button class="iconbtn" onclick="exportHTML()">↓ Exportar</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<div id="nav">
+  <button class="ntab on" onclick="goTab('cronograma',this)">Cronograma</button>
+  <button class="ntab" onclick="goTab('distribuicao',this)">Distribuição</button>
+  <button class="ntab" onclick="goTab('ambientes',this)">Ambientes</button>
+  <button class="ntab" onclick="goTab('dispositivos',this)">Dispositivos</button>
+  <button class="ntab" onclick="goTab('plano',this)">Plano de Ação</button>
+  <button class="ntab" onclick="goTab('analise',this)">Análise</button>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="modal-bg" id="settingsModal">
+  <div class="modal">
+    <div class="modal-title">⚙ Configurar Salas <button class="modal-close" onclick="closeSettings()">✕</button></div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:14px">Edite os nomes dos ambientes tecnológicos. As alterações são salvas automaticamente.</p>
+    <div id="roomFields"></div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px">
+      <button class="btn btn-outline" onclick="closeSettings()">Cancelar</button>
+      <button class="btn btn-dark" onclick="saveSettings()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- DEVICE DETAIL MODAL -->
+<div class="modal-bg" id="devModal">
+  <div class="modal">
+    <div class="modal-title" id="devModalTitle">Dispositivo <button class="modal-close" onclick="closeDevModal()">✕</button></div>
+    <div id="devModalBody"></div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px">
+      <button class="btn btn-outline" onclick="closeDevModal()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div id="main">
+
+<!-- ═══════════════════ CRONOGRAMA ═══════════════════ -->
+<div id="sec-cronograma" class="sec on">
+  <div class="stitle">Cronograma de Plataformas</div>
+  <div class="ssub">Sessões fixas (toda semana) + Tarefas SP do rodízio semanal</div>
+  <div id="bann1" class="bann a"></div>
+  <div class="leg">
+    <div class="li"><div class="ld" style="background:var(--fix)"></div>Plataforma Fixa</div>
+    <div class="li"><div class="ld" style="background:var(--sa)"></div>Tarefas SP · Semana A</div>
+    <div class="li"><div class="ld" style="background:var(--sb)"></div>Tarefas SP · Semana B</div>
+    <div class="li"><div class="ld" style="background:var(--err)"></div>⚠ >5 salas</div>
+  </div>
+  <div class="daynav" id="dayNav1"></div>
+  <div id="dayContent"></div>
+</div>
+
+<!-- ═══════════════════ DISTRIBUIÇÃO ═══════════════════ -->
+<div id="sec-distribuicao" class="sec">
+  <div class="stitle">Distribuição Logística</div>
+  <div class="ssub" id="dist-sub">Como os 5 ambientes absorvem a demanda combinada da semana</div>
+  <div id="bann2" class="bann a" style="margin-bottom:12px"></div>
+  <div class="note">
+    <strong>Prioridade:</strong> Sessões de <span style="color:var(--fix);font-weight:700">Plataforma Fixa</span> têm prioridade máxima e sempre recebem sala. <strong>Tarefas SP</strong> preenchem as salas restantes. Com 5 ambientes (incluindo Sala de Vídeo), a capacidade simultânea aumentou e conflitos foram reduzidos.
+  </div>
+  <div class="g2" style="margin-bottom:14px">
+    <div class="card">
+      <div class="ch"><span class="ct">Demanda por período · Semana <span id="dist-wk">A</span></span></div>
+      <div style="overflow-x:auto"><table class="dtbl" id="demandTbl"></table></div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ct">⚠ Conflitos detectados</span></div>
+      <div class="cb" id="conflictPanel"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ch"><span class="ct">Mapa de alocação por período</span></div>
+    <div class="cb"><div id="allocMap"></div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ AMBIENTES ═══════════════════ -->
+<div id="sec-ambientes" class="sec">
+  <div class="stitle">Ambientes Tecnológicos</div>
+  <div class="ssub" id="ambSub">5 ambientes disponíveis · clique em ⚙ Salas para editar os nomes</div>
+  <div class="g5" id="roomCards" style="margin-bottom:14px"></div>
+  <div class="g2">
+    <div class="card"><div class="ch"><span class="ct">Utilização por ambiente</span></div><div class="cb" id="roomStats"></div></div>
+    <div class="card"><div class="ch"><span class="ct">Sessões por plataforma fixa</span></div><div class="cb" id="platStats"></div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ DISPOSITIVOS ═══════════════════ -->
+<div id="sec-dispositivos" class="sec">
+  <div class="stitle">Gestão de Dispositivos</div>
+  <div class="ssub">Cadastre, vincule e registre o uso de computadores, tablets, celulares e notebooks</div>
+
+  <!-- Sub-tabs -->
+  <div style="display:flex;gap:4px;margin-bottom:18px;border-bottom:1px solid var(--border);padding-bottom:0">
+    <button class="ntab on" id="dstab-reg" onclick="showDevTab('registro',this)">Cadastro</button>
+    <button class="ntab" id="dstab-uso" onclick="showDevTab('uso',this)">Registrar Uso</button>
+    <button class="ntab" id="dstab-mapa" onclick="showDevTab('mapa',this)">Mapa Visual</button>
+    <button class="ntab" id="dstab-hist" onclick="showDevTab('hist',this)">Histórico</button>
+  </div>
+
+  <!-- REGISTRO -->
+  <div id="dtab-registro">
+    <div class="g2">
+      <div class="card">
+        <div class="ch"><span class="ct">Cadastrar Dispositivo</span></div>
+        <div class="cb">
+          <div class="dev-type-row" id="devTypeSel">
+            <button class="dev-type-btn on" onclick="selDevType('COMP',this)"><span class="dev-type-icon">💻</span>Computador</button>
+            <button class="dev-type-btn" onclick="selDevType('TAB',this)"><span class="dev-type-icon">🖥️</span>Tablet</button>
+            <button class="dev-type-btn" onclick="selDevType('CEL',this)"><span class="dev-type-icon">📱</span>Celular</button>
+            <button class="dev-type-btn" onclick="selDevType('NOTE',this)"><span class="dev-type-icon">💾</span>Notebook</button>
+          </div>
+          <div class="field"><label>Identificação / Número</label><input type="text" id="devLabel" placeholder="Ex: Computador 01, Tablet A3…"></div>
+          <div class="field-row">
+            <div class="field"><label>Ambiente</label>
+              <select id="devRoom"><option value="">— selecione —</option></select>
+            </div>
+            <div class="field"><label>Quantidade</label><input type="number" id="devQty" value="1" min="1" max="50"></div>
+          </div>
+          <div class="field"><label>Observação (opcional)</label><input type="text" id="devObs" placeholder="Estado, série, patrimônio…"></div>
+          <button class="btn btn-dark" onclick="addDevice()" style="width:100%">+ Adicionar Dispositivo</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><span class="ct">Dispositivos Cadastrados</span><span id="devCount" style="font-size:11px;color:var(--muted)">0 dispositivos</span></div>
+        <div class="cb" id="devList" style="max-height:360px;overflow-y:auto"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGISTRAR USO -->
+  <div id="dtab-uso" style="display:none">
+    <div class="g2">
+      <div class="card">
+        <div class="ch"><span class="ct">Registrar Sessão de Uso</span></div>
+        <div class="cb">
+          <div class="field"><label>Tipo de Dispositivo</label>
+            <select id="useDevType">
+              <option value="COMP">💻 Computador</option>
+              <option value="TAB">🖥️ Tablet</option>
+              <option value="CEL">📱 Celular</option>
+              <option value="NOTE">💾 Notebook</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Quantidade</label><input type="number" id="useQty" value="1" min="1"></div>
+            <div class="field"><label>Ambiente</label><select id="useRoom"><option value="">— selecione —</option></select></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Turma</label>
+              <select id="useCls">
+                <option value="">— turma —</option>
+                <option>6A</option><option>6B</option><option>6C</option>
+                <option>7A</option><option>7B</option>
+                <option>8A</option><option>8B</option><option>8C</option>
+                <option>9A</option><option>9B</option>
+              </select>
+            </div>
+            <div class="field"><label>Período</label>
+              <select id="usePer">
+                <option value="1">1ª · 7h00–7h50</option>
+                <option value="2">2ª · 7h50–8h40</option>
+                <option value="3">3ª · 8h40–9h30</option>
+                <option value="4">4ª · 9h40–10h30</option>
+                <option value="5">5ª · 10h30–11h20</option>
+                <option value="6a">6ª early · 11h20–12h10</option>
+                <option value="6b">6ª late · 12h20–13h10</option>
+                <option value="7">7ª · 13h10–14h00</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Dia</label>
+              <select id="useDay">
+                <option>Segunda</option><option>Terça</option><option>Quarta</option><option>Quinta</option><option>Sexta</option>
+              </select>
+            </div>
+            <div class="field"><label>Semana</label>
+              <select id="useWk"><option value="A">Semana A</option><option value="B">Semana B</option></select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Professor</label><input type="text" id="useTeacher" placeholder="Nome do professor"></div>
+            <div class="field"><label>Componente</label><input type="text" id="useSub" placeholder="Ex: Matemática"></div>
+          </div>
+          <div class="field"><label>Finalidade</label>
+            <select id="useGoal">
+              <option value="plat">Plataforma Fixa (Matific, Red.Leit, Tec…)</option>
+              <option value="tsp">Tarefas SP</option>
+              <option value="pesq">Pesquisa / Projeto</option>
+              <option value="aval">Avaliação Digital</option>
+              <option value="outr">Outra atividade</option>
+            </select>
+          </div>
+          <button class="btn btn-dark" onclick="registerUsage()" style="width:100%;margin-top:4px">✓ Registrar Uso</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><span class="ct">Resumo Rápido</span></div>
+        <div class="cb" id="useSummary"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAPA VISUAL -->
+  <div id="dtab-mapa" style="display:none">
+    <div class="note">Visualização dos dispositivos por ambiente. Clique em um chip para ver o histórico de uso.</div>
+    <div id="devMapView"></div>
+  </div>
+
+  <!-- HISTÓRICO -->
+  <div id="dtab-hist" style="display:none">
+    <div class="card">
+      <div class="ch">
+        <span class="ct">Histórico de Uso</span>
+        <div style="display:flex;gap:6px">
+          <select id="histFilter" style="border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-family:'Inter',sans-serif;font-size:11.5px" onchange="renderHist()">
+            <option value="">Todos</option>
+            <option value="COMP">💻 Computadores</option>
+            <option value="TAB">🖥️ Tablets</option>
+            <option value="CEL">📱 Celulares</option>
+            <option value="NOTE">💾 Notebooks</option>
+          </select>
+          <button class="btn btn-red btn-sm" onclick="clearUsage()">Limpar tudo</button>
+        </div>
+      </div>
+      <div class="cb" id="usageLog" style="max-height:480px;overflow-y:auto"></div>
+    </div>
+    <!-- Timeline heatmap -->
+    <div class="card" style="margin-top:14px">
+      <div class="ch"><span class="ct">Heatmap de Uso · Semana <span id="hmWk">A</span></span></div>
+      <div class="cb"><div class="tl-grid" id="tl-grid"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ PLANO DE AÇÃO ═══════════════════ -->
+<div id="sec-plano" class="sec">
+  <div class="stitle">Plano de Ação Pedagógico</div>
+  <div class="ssub">Uso de plataformas digitais e rodízio A/B fundamentados em evidências da ciência cognitiva</div>
+
+  <!-- Fundamentação -->
+  <div class="plan-sec">
+    <div class="plan-sec-title">🧠 Fundamentação Científica</div>
+    <div class="plan-principle">
+      <div class="plan-p-icon">📉</div>
+      <div>
+        <div class="plan-p-title">Curva do Esquecimento — Ebbinghaus (1885)</div>
+        <div class="plan-p-text">Sem reforço, retemos menos de 30% do conteúdo após 48 horas. O rodízio semanal A/B cria o <strong>intervalo ótimo de espaçamento (~7 dias)</strong> entre instrução e recuperação via Tarefas SP — exatamente quando o aprendiz está prestes a esquecer, tornando a reativação maximamente eficaz para a consolidação na memória de longo prazo.</div>
+        <span class="plan-p-tag" style="background:#eff6ff;color:#1d4ed8">Espaçamento ótimo: 7 dias</span>
+        <span class="plan-p-tag" style="background:#f0fdf4;color:#15803d">Retenção aumenta até +200%</span>
+      </div>
+    </div>
+    <div class="plan-principle">
+      <div class="plan-p-icon">🔁</div>
+      <div>
+        <div class="plan-p-title">Recuperação Ativa (Retrieval Practice) — Roediger & Karpicke (2006)</div>
+        <div class="plan-p-text">Recuperar ativamente uma informação da memória é <strong>superior à releitura passiva</strong> em até 50% na retenção a longo prazo. O Tarefas SP funciona como ferramenta de recuperação ativa: o aluno gera respostas — não reconhece — fortalecendo sinapses e consolidando esquemas na memória de longo prazo (CREB-dependent consolidation; Kandel, 2001).</div>
+        <span class="plan-p-tag" style="background:#f5f3ff;color:#7c3aed">Efeito Teste (Testing Effect)</span>
+        <span class="plan-p-tag" style="background:#f0fdf4;color:#15803d">Utilidade Alta (Dunlosky et al., 2013)</span>
+      </div>
+    </div>
+    <div class="plan-principle">
+      <div class="plan-p-icon">⚡</div>
+      <div>
+        <div class="plan-p-title">Dificuldade Desejável — Bjork & Bjork (2011)</div>
+        <div class="plan-p-text">O rodízio A/B cria dificuldade produtiva: o aluno não usa a plataforma toda semana no mesmo componente, o que <strong>gera esforço de recuperação</strong> — sensação de dificuldade que, paradoxalmente, produz aprendizado mais robusto e duradouro do que a prática massiva contínua ("cramming"). A alternância entre instrução explícita e recuperação digital é o mecanismo central desta dificuldade desejável.</div>
+        <span class="plan-p-tag" style="background:#fffbeb;color:#d97706">Interleaving</span>
+        <span class="plan-p-tag" style="background:#fffbeb;color:#d97706">Spaced Practice</span>
+      </div>
+    </div>
+    <div class="plan-principle">
+      <div class="plan-p-icon">🎯</div>
+      <div>
+        <div class="plan-p-title">Instrução Explícita — Rosenshine (2012); Archer & Hughes (2011)</div>
+        <div class="plan-p-text">A semana sem plataforma (instrução explícita) é parte ativa do ciclo: modelagem cognitiva externalizada, prática guiada com alta taxa de resposta (~80% de acerto), verificação de compreensão frequente. A plataforma na semana seguinte verifica, consolida e automatiza o que foi ensinado explicitamente. As plataformas fixas (Matific, Red.Leit) funcionam como prática distribuída semanal de domínios de alta frequência.</div>
+        <span class="plan-p-tag" style="background:#ecfdf5;color:#15803d">Instrução Explícita</span>
+        <span class="plan-p-tag" style="background:#ecfdf5;color:#15803d">Prática Guiada → Independente</span>
+      </div>
+    </div>
+    <div class="plan-principle">
+      <div class="plan-p-icon">🧬</div>
+      <div>
+        <div class="plan-p-title">Carga Cognitiva — Sweller (1988, 2011)</div>
+        <div class="plan-p-text">A alternância entre instrução (Semana A ou B) e recuperação digital <strong>reduz carga cognitiva extrínseca</strong>: o aluno não precisa aprender conteúdo novo E usar a plataforma na mesma semana para todos os componentes. A carga é gerenciada intertemporalmente, respeitando os limites da memória de trabalho (~4 chunks; Cowan, 2001) e favorecendo a formação de esquemas na memória de longo prazo.</div>
+        <span class="plan-p-tag" style="background:#f1f5f9;color:#475569">Carga Intrínseca Gerenciada</span>
+        <span class="plan-p-tag" style="background:#f1f5f9;color:#475569">Esquemas em MLP</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Objetivos -->
+  <div class="plan-sec">
+    <div class="plan-sec-title">🎯 Objetivos (SMART)</div>
+    <div class="g2" style="margin-bottom:10px">
+      <div class="goal-card" style="background:#ecfdf5;border-color:#a7f3d0">
+        <div class="goal-num" style="color:#059669">Meta 1 · Cobertura</div>
+        <div class="goal-title">100% das turmas acessam plataformas digitais a cada ciclo de 2 semanas</div>
+        <div class="goal-text">Todas as 10 turmas do EFAF realizam Tarefas SP em todos os componentes curriculares ao final de cada ciclo A/B, sem nenhuma turma ou componente excluído. Plataformas fixas garantem cobertura semanal adicional.</div>
+      </div>
+      <div class="goal-card" style="background:#eff6ff;border-color:#bfdbfe">
+        <div class="goal-num" style="color:#2563eb">Meta 2 · Retenção</div>
+        <div class="goal-title">Espaçamento de 7 dias entre instrução e recuperação digital para todos os componentes</div>
+        <div class="goal-text">O rodízio A/B garante que a instrução explícita de um componente sempre preceda a recuperação via Tarefas SP por aproximadamente uma semana, ativando a dificuldade desejável e maximizando a consolidação na memória de longo prazo.</div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="goal-card" style="background:#f5f3ff;border-color:#ddd6fe">
+        <div class="goal-num" style="color:#7c3aed">Meta 3 · Logística</div>
+        <div class="goal-title">Zero conflitos de laboratório por semana com uso dos 5 ambientes</div>
+        <div class="goal-text">Os 5 ambientes tecnológicos (Sala 18, Sala 20, Acessa, Sala Prontos para o Mundo e Sala de Vídeo) são gerenciados para acomodar todas as sessões simultâneas sem sobreposição, usando o sistema de distribuição automática.</div>
+      </div>
+      <div class="goal-card" style="background:#fffbeb;border-color:#fde68a">
+        <div class="goal-num" style="color:#d97706">Meta 4 · Equidade</div>
+        <div class="goal-title">Acesso equitativo a todos os componentes curriculares via plataformas digitais</div>
+        <div class="goal-text">Nenhum componente curricular é excluído do acesso digital. A instrução explícita + plataforma protege especialmente alunos com menor capital cultural extra-escolar (argumento de justiça epistêmica; Hirsch; Engelmann).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ações -->
+  <div class="plan-sec">
+    <div class="plan-sec-title">📌 Ações Estruturantes</div>
+    <table class="plan-tbl">
+      <thead><tr><th>Ação</th><th>Responsável</th><th>Periodicidade</th><th>Indicador</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Executar rodízio A/B</strong> conforme cronograma do sistema, alternando grupos de componentes a cada semana</td><td>Coordenação + Professores</td><td>Semanal</td><td>% turmas atendidas no ciclo</td></tr>
+        <tr><td><strong>Instrução explícita</strong> na semana sem plataforma: modelagem, prática guiada, verificação de compreensão ≥80%</td><td>Professores</td><td>Toda semana</td><td>Taxa de acerto na prática guiada</td></tr>
+        <tr><td><strong>Plataformas fixas</strong> (Matific, Red.Leit, Ing, Tec) toda semana independente do rodízio A/B</td><td>Professores fixos</td><td>Toda semana</td><td>Sessões fixas realizadas / agendadas</td></tr>
+        <tr><td><strong>Registro de dispositivos</strong> — cadastrar e atualizar todos os equipamentos nos ambientes</td><td>Coordenação</td><td>Mensal</td><td>Inventário atualizado</td></tr>
+        <tr><td><strong>ATPC pedagógica</strong> — análise de resultados das plataformas, ajuste de sequência de instrução explícita</td><td>Coordenação + Gestão</td><td>Quinzenal</td><td>Ata de ATPC registrada</td></tr>
+        <tr><td><strong>Revisão do cronograma</strong> — ajuste de conflitos, troca de ambientes conforme disponibilidade</td><td>Coordenação</td><td>Semanal</td><td>Conflitos = 0 por semana</td></tr>
+        <tr><td><strong>Comunicar semana vigente</strong> (A ou B) a todos os professores toda segunda-feira</td><td>Coordenação</td><td>Toda segunda</td><td>Comunicado enviado</td></tr>
+        <tr><td><strong>Verificação de equipamentos</strong> — testar funcionamento e carregar dispositivos móveis</td><td>Apoio / Coordenação</td><td>Quinzenal</td><td>% dispositivos operacionais</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Indicadores -->
+  <div class="plan-sec">
+    <div class="plan-sec-title">📊 Indicadores de Monitoramento</div>
+    <table class="plan-tbl">
+      <thead><tr><th>Indicador</th><th>Meta</th><th>Periodicidade</th><th>Fonte</th></tr></thead>
+      <tbody>
+        <tr><td>% turmas que realizaram Tarefas SP por ciclo A/B</td><td>100%</td><td>Quinzenal</td><td>Registro do sistema</td></tr>
+        <tr><td>Sessões de plataforma fixa realizadas vs. agendadas</td><td>≥95%</td><td>Semanal</td><td>Cronograma + Registro</td></tr>
+        <tr><td>Número de conflitos de laboratório por semana</td><td>0</td><td>Semanal</td><td>Aba Distribuição</td></tr>
+        <tr><td>% dispositivos operacionais por ambiente</td><td>≥90%</td><td>Quinzenal</td><td>Aba Dispositivos</td></tr>
+        <tr><td>Taxa de uso dos 5 ambientes (horas de uso / horas disponíveis)</td><td>≥70%</td><td>Mensal</td><td>Heatmap de Uso</td></tr>
+        <tr><td>Componentes sem acesso digital em alguma turma por mês</td><td>0</td><td>Mensal</td><td>Aba Análise</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Base Teórica Resumida -->
+  <div class="plan-sec">
+    <div class="plan-sec-title">📚 Referências Centrais</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;color:var(--slate)">
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:10px 12px"><strong>Rosenshine, B. (2012).</strong> Principles of Instruction. <em>American Educator.</em> 10 princípios derivados de ciência cognitiva e estudos de professores eficazes.</div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:10px 12px"><strong>Kirschner, Sweller & Clark (2006).</strong> Why Minimal Guidance During Instruction Does Not Work. <em>Educational Psychologist, 41(2).</em></div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:10px 12px"><strong>Roediger & Karpicke (2006).</strong> Test-Enhanced Learning. <em>Psychological Science.</em> Recuperação ativa supera releitura em retenção.</div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:10px 12px"><strong>Bjork & Bjork (2011).</strong> Making Things Hard on Yourself, But in a Good Way. <em>In Psychology and the Real World.</em> Dificuldades desejáveis e aprendizado duradouro.</div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:10px 12px"><strong>Sweller, J. (1988, 2011).</strong> Cognitive Load Theory. Gestão da carga cognitiva e formação de esquemas mentais.</div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:10px 12px"><strong>Cepeda et al. (2006).</strong> Distributed practice in verbal recall tasks. <em>Psychological Bulletin.</em> Espaçamento ótimo para retenção.</div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:10px 12px"><strong>Dunlosky et al. (2013).</strong> Improving Students' Learning With Effective Learning Techniques. <em>Psychological Science in the Public Interest.</em></div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:7px;padding:10px 12px"><strong>Stockard et al. (2018).</strong> The Effectiveness of Direct Instruction Curricula: A Meta-Analysis. <em>Review of Educational Research.</em> Tamanhos de efeito grandes e estáveis.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ ANÁLISE ═══════════════════ -->
+<div id="sec-analise" class="sec">
+  <div class="stitle">Análise Geral</div>
+  <div class="ssub">Visão consolidada · Semana <span id="anlWk">A</span></div>
+
+  <div class="stats" id="statsRow"></div>
+
+  <!-- Dispositivos por tipo -->
+  <div class="card" style="margin-bottom:14px">
+    <div class="ch"><span class="ct">Dispositivos por tipo</span></div>
+    <div class="cb">
+      <div id="devTypeStats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px"></div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:14px">
+    <div class="card"><div class="ch"><span class="ct">Sessões fixas por turma</span></div><div class="cb" id="classFix"></div></div>
+    <div class="card"><div class="ch"><span class="ct">Dispositivos por ambiente</span></div><div class="cb" id="devByRoom"></div></div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><span class="ct">Rodízio A × B — todos os componentes</span></div>
+    <div class="cb" id="rotTable"></div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+// ══════════════════════════════════════════════════════════════════
+// DADOS — PLATAFORMAS FIXAS (Cronograma PDF 23/04/2026)
+// ══════════════════════════════════════════════════════════════════
+const FIX = [
+  {d:'Segunda',p:1,cl:'6A',tc:'Gilson',sub:'RL',room:'S18'},{d:'Segunda',p:1,cl:'9B',tc:'Sueli',sub:'ING',room:'ACC'},
+  {d:'Segunda',p:2,cl:'6A',tc:'Gilson',sub:'RL',room:'S18'},{d:'Segunda',p:2,cl:'9B',tc:'Sueli',sub:'ING',room:'ACC'},
+  {d:'Segunda',p:3,cl:'7A',tc:'Sueli',sub:'ING',room:'S18'},{d:'Segunda',p:3,cl:'7B',tc:'Rita',sub:'MAT',room:'ACC'},
+  {d:'Segunda',p:4,cl:'8C',tc:'Sueli',sub:'ING',room:'S18'},{d:'Segunda',p:5,cl:'8C',tc:'Sueli',sub:'ING',room:'S18'},
+  {d:'Terça',p:1,cl:'7A',tc:'Rita',sub:'MAT',room:'ACC'},{d:'Terça',p:1,cl:'7B',tc:'Sueli',sub:'ING',room:'S18'},{d:'Terça',p:1,cl:'9A',tc:'Wallace',sub:'TEC',room:'S20'},
+  {d:'Terça',p:2,cl:'7B',tc:'Sueli',sub:'ING',room:'S18'},{d:'Terça',p:2,cl:'9A',tc:'Wallace',sub:'TEC',room:'S20'},
+  {d:'Terça',p:3,cl:'9A',tc:'Silvia',sub:'MAT',room:'ACC'},
+  {d:'Terça',p:4,cl:'6B',tc:'Gilson',sub:'RL',room:'S18'},{d:'Terça',p:4,cl:'6C',tc:'Efigênia',sub:'MAT',room:'ACC'},
+  {d:'Terça',p:5,cl:'6A',tc:'Efigênia',sub:'MAT',room:'ACC'},{d:'Terça',p:5,cl:'6B',tc:'Gilson',sub:'RL',room:'S18'},
+  {d:'Terça',p:'6a',cl:'8B',tc:'Rita',sub:'MAT',room:'ACC'},{d:'Terça',p:'6b',cl:'6A',tc:'Sueli',sub:'ING',room:'S18'},{d:'Terça',p:7,cl:'6A',tc:'Sueli',sub:'ING',room:'S18'},
+  {d:'Quarta',p:1,cl:'6B',tc:'Sueli',sub:'ING',room:'S18'},{d:'Quarta',p:2,cl:'6B',tc:'Sueli',sub:'ING',room:'S18'},
+  {d:'Quarta',p:3,cl:'6B',tc:'Efigênia',sub:'MAT',room:'ACC'},
+  {d:'Quarta',p:4,cl:'6C',tc:'Andrea',sub:'TEC',room:'S18'},{d:'Quarta',p:4,cl:'8A',tc:'Sueli',sub:'ING',room:'ACC'},{d:'Quarta',p:4,cl:'8B',tc:'Ana Paula',sub:'TEC',room:'S20'},
+  {d:'Quarta',p:5,cl:'6C',tc:'Andrea',sub:'TEC',room:'S18'},{d:'Quarta',p:5,cl:'8A',tc:'Sueli',sub:'ING',room:'ACC'},{d:'Quarta',p:5,cl:'8B',tc:'Ana Paula',sub:'TEC',room:'S20'},
+  {d:'Quarta',p:'6a',cl:'8C',tc:'Gilson',sub:'RL',room:'S18'},{d:'Quarta',p:'6a',cl:'9A',tc:'Sueli',sub:'ING',room:'ACC'},
+  {d:'Quarta',p:7,cl:'8C',tc:'Gilson',sub:'RL',room:'S18'},{d:'Quarta',p:7,cl:'9A',tc:'Sueli',sub:'ING',room:'ACC'},
+  {d:'Quinta',p:1,cl:'6C',tc:'Sueli',sub:'ING',room:'S18'},{d:'Quinta',p:1,cl:'7B',tc:'Carlos',sub:'TEC',room:'S20'},{d:'Quinta',p:1,cl:'8A',tc:'Livia',sub:'RL',room:'ACC'},
+  {d:'Quinta',p:2,cl:'6C',tc:'Sueli',sub:'ING',room:'S18'},{d:'Quinta',p:2,cl:'7B',tc:'Carlos',sub:'TEC',room:'S20'},{d:'Quinta',p:2,cl:'8A',tc:'Livia',sub:'RL',room:'ACC'},
+  {d:'Quinta',p:3,cl:'7A',tc:'Carlos',sub:'TEC',room:'S20'},{d:'Quinta',p:3,cl:'8C',tc:'Rita',sub:'MAT',room:'ACC'},
+  {d:'Quinta',p:4,cl:'6B',tc:'Andrea',sub:'TEC',room:'S18'},{d:'Quinta',p:4,cl:'7A',tc:'Carlos',sub:'TEC',room:'S20'},{d:'Quinta',p:4,cl:'8B',tc:'Livia',sub:'RL',room:'ACC'},
+  {d:'Quinta',p:5,cl:'6B',tc:'Andrea',sub:'TEC',room:'S18'},{d:'Quinta',p:5,cl:'8B',tc:'Livia',sub:'RL',room:'ACC'},
+  {d:'Quinta',p:'6a',cl:'8A',tc:'Ana Paula',sub:'TEC',room:'S20'},{d:'Quinta',p:'6b',cl:'7A',tc:'Gilson',sub:'RL',room:'S18'},
+  {d:'Quinta',p:7,cl:'7A',tc:'Gilson',sub:'RL',room:'S18'},{d:'Quinta',p:7,cl:'8A',tc:'Ana Paula',sub:'TEC',room:'S20'},
+  {d:'Sexta',p:1,cl:'6C',tc:'Gilson',sub:'RL',room:'S18'},{d:'Sexta',p:1,cl:'9B',tc:'Eliana',sub:'RL',room:'ACC'},
+  {d:'Sexta',p:2,cl:'6C',tc:'Gilson',sub:'RL',room:'S18'},{d:'Sexta',p:2,cl:'8C',tc:'Wallace',sub:'TEC',room:'S20'},{d:'Sexta',p:2,cl:'9B',tc:'Eliana',sub:'RL',room:'ACC'},
+  {d:'Sexta',p:3,cl:'7A',tc:'Sueli',sub:'ING',room:'S18'},{d:'Sexta',p:3,cl:'8C',tc:'Wallace',sub:'TEC',room:'S20'},{d:'Sexta',p:3,cl:'9B',tc:'Silvia',sub:'MAT',room:'ACC'},
+  {d:'Sexta',p:4,cl:'7B',tc:'Eliana',sub:'RL',room:'S18'},{d:'Sexta',p:4,cl:'8A',tc:'Rita',sub:'MAT',room:'ACC'},
+  {d:'Sexta',p:5,cl:'7B',tc:'Eliana',sub:'RL',room:'S18'},
+  {d:'Sexta',p:'6a',cl:'8B',tc:'Sueli',sub:'ING',room:'S18'},{d:'Sexta',p:'6a',cl:'9A',tc:'Eliana',sub:'RL',room:'ACC'},{d:'Sexta',p:'6a',cl:'9B',tc:'Wallace',sub:'TEC',room:'S20'},
+  {d:'Sexta',p:'6b',cl:'6A',tc:'Andrea',sub:'TEC',room:'S18'},
+  {d:'Sexta',p:7,cl:'6A',tc:'Andrea',sub:'TEC',room:'S18'},{d:'Sexta',p:7,cl:'8B',tc:'Sueli',sub:'ING',room:'ACC'},{d:'Sexta',p:7,cl:'9A',tc:'Eliana',sub:'RL',room:'PPM'},{d:'Sexta',p:7,cl:'9B',tc:'Wallace',sub:'TEC',room:'S20'},
+];
+
+const TSP_A=[
+  {d:'Segunda',p:1,cl:'7A',tc:'Livia',sub:'L. Port.'},{d:'Segunda',p:1,cl:'9A',tc:'Eliana',sub:'L. Port.'},{d:'Segunda',p:2,cl:'7A',tc:'Livia',sub:'L. Port.'},{d:'Segunda',p:2,cl:'9A',tc:'Eliana',sub:'L. Port.'},
+  {d:'Segunda',p:3,cl:'8A',tc:'Livia',sub:'L. Port.'},{d:'Segunda',p:4,cl:'6C',tc:'Gilson',sub:'L. Port.'},{d:'Segunda',p:4,cl:'7B',tc:'Livia',sub:'L. Port.'},{d:'Segunda',p:5,cl:'6C',tc:'Gilson',sub:'L. Port.'},{d:'Segunda',p:5,cl:'7B',tc:'Livia',sub:'L. Port.'},
+  {d:'Terça',p:1,cl:'8B',tc:'Livia',sub:'L. Port.'},{d:'Terça',p:1,cl:'9B',tc:'Eliana',sub:'L. Port.'},{d:'Terça',p:2,cl:'8B',tc:'Livia',sub:'L. Port.'},{d:'Terça',p:2,cl:'9B',tc:'Eliana',sub:'L. Port.'},
+  {d:'Terça',p:3,cl:'6A',tc:'Eliana',sub:'L. Port.'},{d:'Terça',p:3,cl:'8A',tc:'Livia',sub:'L. Port.'},{d:'Terça',p:4,cl:'8C',tc:'Livia',sub:'L. Port.'},{d:'Terça',p:5,cl:'8C',tc:'Livia',sub:'L. Port.'},
+  {d:'Terça',p:'6b',cl:'6C',tc:'Gilson',sub:'L. Port.'},{d:'Terça',p:7,cl:'6C',tc:'Gilson',sub:'L. Port.'},
+  {d:'Quarta',p:1,cl:'7A',tc:'Livia',sub:'L. Port.'},{d:'Quarta',p:1,cl:'9A',tc:'Eliana',sub:'L. Port.'},{d:'Quarta',p:2,cl:'7A',tc:'Livia',sub:'L. Port.'},{d:'Quarta',p:2,cl:'9A',tc:'Eliana',sub:'L. Port.'},
+  {d:'Quarta',p:4,cl:'6B',tc:'Gilson',sub:'L. Port.'},{d:'Quarta',p:5,cl:'6B',tc:'Gilson',sub:'L. Port.'},{d:'Quarta',p:'6a',cl:'8A',tc:'Livia',sub:'L. Port.'},{d:'Quarta',p:7,cl:'8A',tc:'Livia',sub:'L. Port.'},
+  {d:'Quinta',p:1,cl:'6B',tc:'Gilson',sub:'L. Port.'},{d:'Quinta',p:1,cl:'9B',tc:'Eliana',sub:'L. Port.'},{d:'Quinta',p:2,cl:'6B',tc:'Gilson',sub:'L. Port.'},{d:'Quinta',p:2,cl:'9B',tc:'Eliana',sub:'L. Port.'},
+  {d:'Quinta',p:3,cl:'6A',tc:'Eliana',sub:'L. Port.'},{d:'Quinta',p:4,cl:'6A',tc:'Eliana',sub:'L. Port.'},{d:'Quinta',p:'6b',cl:'7B',tc:'Livia',sub:'L. Port.'},{d:'Quinta',p:7,cl:'7B',tc:'Livia',sub:'L. Port.'},
+  {d:'Sexta',p:4,cl:'8B',tc:'Livia',sub:'L. Port.'},{d:'Sexta',p:5,cl:'8B',tc:'Livia',sub:'L. Port.'},{d:'Sexta',p:'6a',cl:'8C',tc:'Livia',sub:'L. Port.'},{d:'Sexta',p:7,cl:'8C',tc:'Livia',sub:'L. Port.'},
+  {d:'Segunda',p:2,cl:'7B',tc:'Luci',sub:'Arte'},{d:'Segunda',p:3,cl:'8B',tc:'Luci',sub:'Arte'},{d:'Segunda',p:4,cl:'6A',tc:'Luci',sub:'Arte'},{d:'Segunda',p:5,cl:'6A',tc:'Luci',sub:'Arte'},
+  {d:'Terça',p:'6b',cl:'6B',tc:'Luci',sub:'Arte'},{d:'Terça',p:7,cl:'6B',tc:'Luci',sub:'Arte'},{d:'Quarta',p:7,cl:'9B',tc:'Luci',sub:'Arte'},
+  {d:'Quinta',p:1,cl:'7A',tc:'Luci',sub:'Arte'},{d:'Quinta',p:2,cl:'7A',tc:'Luci',sub:'Arte'},{d:'Quinta',p:3,cl:'9A',tc:'Luci',sub:'Arte'},{d:'Quinta',p:4,cl:'7B',tc:'Luci',sub:'Arte'},{d:'Quinta',p:5,cl:'6C',tc:'Luci',sub:'Arte'},
+  {d:'Sexta',p:1,cl:'8C',tc:'Luci',sub:'Arte'},{d:'Sexta',p:5,cl:'6C',tc:'Luci',sub:'Arte'},{d:'Sexta',p:'6a',cl:'8A',tc:'Luci',sub:'Arte'},
+];
+
+const TSP_B=[
+  {d:'Segunda',p:1,cl:'6B',tc:'Andrea',sub:'Ciências'},{d:'Segunda',p:2,cl:'6B',tc:'Andrea',sub:'Ciências'},{d:'Segunda',p:3,cl:'6A',tc:'Andrea',sub:'Ciências'},{d:'Segunda',p:4,cl:'8A',tc:'Wallace',sub:'Ciências'},{d:'Segunda',p:5,cl:'8A',tc:'Wallace',sub:'Ciências'},
+  {d:'Terça',p:1,cl:'6A',tc:'Andrea',sub:'Ciências'},{d:'Terça',p:2,cl:'6A',tc:'Andrea',sub:'Ciências'},{d:'Terça',p:4,cl:'8A',tc:'Wallace',sub:'Ciências'},{d:'Terça',p:5,cl:'6C',tc:'Andrea',sub:'Ciências'},{d:'Terça',p:5,cl:'8A',tc:'Wallace',sub:'Ciências'},
+  {d:'Terça',p:'6a',cl:'9B',tc:'Wallace',sub:'Ciências'},{d:'Terça',p:7,cl:'7A',tc:'Andrea',sub:'Ciências'},{d:'Terça',p:7,cl:'9B',tc:'Wallace',sub:'Ciências'},
+  {d:'Quarta',p:1,cl:'7B',tc:'Andrea',sub:'Ciências'},{d:'Quarta',p:2,cl:'7B',tc:'Andrea',sub:'Ciências'},{d:'Quarta',p:3,cl:'8B',tc:'Wallace',sub:'Ciências'},{d:'Quarta',p:4,cl:'8C',tc:'Wallace',sub:'Ciências'},{d:'Quarta',p:5,cl:'8C',tc:'Wallace',sub:'Ciências'},
+  {d:'Quinta',p:1,cl:'8C',tc:'Wallace',sub:'Ciências'},{d:'Quinta',p:2,cl:'8C',tc:'Wallace',sub:'Ciências'},{d:'Quinta',p:4,cl:'9A',tc:'Wallace',sub:'Ciências'},{d:'Quinta',p:5,cl:'9A',tc:'Wallace',sub:'Ciências'},
+  {d:'Quinta',p:'6a',cl:'9B',tc:'Wallace',sub:'Ciências'},{d:'Quinta',p:7,cl:'6C',tc:'Andrea',sub:'Ciências'},{d:'Quinta',p:7,cl:'9B',tc:'Wallace',sub:'Ciências'},
+  {d:'Sexta',p:2,cl:'7A',tc:'Andrea',sub:'Ciências'},{d:'Sexta',p:3,cl:'7B',tc:'Andrea',sub:'Ciências'},
+  {d:'Segunda',p:1,cl:'7B',tc:'Santana',sub:'Geo'},{d:'Segunda',p:3,cl:'6C',tc:'Santana',sub:'Geo'},{d:'Segunda',p:4,cl:'7A',tc:'Santana',sub:'Geo'},{d:'Segunda',p:5,cl:'7A',tc:'Santana',sub:'Geo'},
+  {d:'Terça',p:1,cl:'8A',tc:'Ana Paula',sub:'Geo'},{d:'Terça',p:2,cl:'8A',tc:'Ana Paula',sub:'Geo'},{d:'Terça',p:3,cl:'6B',tc:'Santana',sub:'Geo'},{d:'Terça',p:4,cl:'9A',tc:'Ana Paula',sub:'Geo'},{d:'Terça',p:5,cl:'9A',tc:'Ana Paula',sub:'Geo'},
+  {d:'Terça',p:'6a',cl:'8C',tc:'Ana Paula',sub:'Geo'},{d:'Terça',p:7,cl:'8C',tc:'Ana Paula',sub:'Geo'},
+  {d:'Quarta',p:1,cl:'9B',tc:'Ana Paula',sub:'Geo'},{d:'Quarta',p:3,cl:'7A',tc:'Santana',sub:'Geo'},{d:'Quarta',p:3,cl:'9A',tc:'Ana Paula',sub:'Geo'},{d:'Quarta',p:'6b',cl:'6B',tc:'Santana',sub:'Geo'},{d:'Quarta',p:7,cl:'6B',tc:'Santana',sub:'Geo'},
+  {d:'Quinta',p:1,cl:'8B',tc:'Ana Paula',sub:'Geo'},{d:'Quinta',p:2,cl:'8B',tc:'Ana Paula',sub:'Geo'},{d:'Quinta',p:5,cl:'7B',tc:'Santana',sub:'Geo'},{d:'Quinta',p:5,cl:'8C',tc:'Ana Paula',sub:'Geo'},{d:'Quinta',p:7,cl:'6A',tc:'Santana',sub:'Geo'},
+  {d:'Sexta',p:1,cl:'7B',tc:'Santana',sub:'Geo'},{d:'Sexta',p:3,cl:'6C',tc:'Santana',sub:'Geo'},{d:'Sexta',p:4,cl:'6C',tc:'Santana',sub:'Geo'},{d:'Sexta',p:4,cl:'9B',tc:'Ana Paula',sub:'Geo'},{d:'Sexta',p:5,cl:'9B',tc:'Ana Paula',sub:'Geo'},
+  {d:'Segunda',p:1,cl:'8C',tc:'Helio',sub:'Hist'},{d:'Segunda',p:2,cl:'8C',tc:'Helio',sub:'Hist'},{d:'Segunda',p:3,cl:'9B',tc:'Helio',sub:'Hist'},
+  {d:'Terça',p:3,cl:'7A',tc:'Ana Paula',sub:'Hist'},{d:'Terça',p:3,cl:'9B',tc:'Helio',sub:'Hist'},{d:'Terça',p:4,cl:'8B',tc:'Helio',sub:'Hist'},{d:'Terça',p:5,cl:'8B',tc:'Helio',sub:'Hist'},
+  {d:'Quarta',p:1,cl:'8A',tc:'Helio',sub:'Hist'},{d:'Quarta',p:2,cl:'8A',tc:'Helio',sub:'Hist'},{d:'Quarta',p:3,cl:'6C',tc:'Helio',sub:'Hist'},{d:'Quarta',p:'6b',cl:'6A',tc:'Helio',sub:'Hist'},{d:'Quarta',p:'6b',cl:'7A',tc:'Ana Paula',sub:'Hist'},{d:'Quarta',p:7,cl:'6A',tc:'Helio',sub:'Hist'},{d:'Quarta',p:7,cl:'7A',tc:'Ana Paula',sub:'Hist'},
+  {d:'Quinta',p:1,cl:'9A',tc:'Helio',sub:'Hist'},{d:'Quinta',p:2,cl:'9A',tc:'Helio',sub:'Hist'},{d:'Quinta',p:3,cl:'7B',tc:'Ana Paula',sub:'Hist'},{d:'Quinta',p:3,cl:'9B',tc:'Helio',sub:'Hist'},{d:'Quinta',p:4,cl:'8C',tc:'Helio',sub:'Hist'},{d:'Quinta',p:5,cl:'6A',tc:'Helio',sub:'Hist'},{d:'Quinta',p:7,cl:'6B',tc:'Helio',sub:'Hist'},
+  {d:'Sexta',p:2,cl:'6B',tc:'Helio',sub:'Hist'},{d:'Sexta',p:3,cl:'6B',tc:'Helio',sub:'Hist'},{d:'Sexta',p:5,cl:'8A',tc:'Helio',sub:'Hist'},{d:'Sexta',p:'6b',cl:'7B',tc:'Ana Paula',sub:'Hist'},{d:'Sexta',p:7,cl:'7B',tc:'Ana Paula',sub:'Hist'},
+];
+
+// ── META ────────────────────────────────────────────────────────────
+const DEFAULT_ROOMS=[
+  {k:'S18',name:'Sala 18',        color:'#3b82f6'},
+  {k:'S20',name:'Sala 20',        color:'#10b981'},
+  {k:'ACC',name:'Acessa',         color:'#f59e0b'},
+  {k:'PPM',name:'Prontos p/ Mundo',color:'#8b5cf6'},
+  {k:'SV', name:'Sala de Vídeo',  color:'#e11d48'},
+];
+const PLAB={RL:{name:'Redação e Leitura',label:'Red.Paulista+Leitura',color:'#059669'},ING:{name:'Inglês',label:'Plataforma Inglês',color:'#3b82f6'},MAT:{name:'Matemática',label:'Matific',color:'#f59e0b'},TEC:{name:'Tecnologia',label:'Plataforma Tec.',color:'#8b5cf6'}};
+const PDEF=[{id:1,lb:'1ª',time:'7h00–7h50'},{id:2,lb:'2ª',time:'7h50–8h40'},{id:3,lb:'3ª',time:'8h40–9h30'},{id:4,lb:'4ª',time:'9h40–10h30'},{id:5,lb:'5ª',time:'10h30–11h20'},{id:'6a',lb:'6ª',time:'11h20–12h10',note:'8A-9B'},{id:'6b',lb:'6ª',time:'12h20–13h10',note:'6A-7B'},{id:7,lb:'7ª',time:'13h10–14h00'}];
+const DAYS=['Segunda','Terça','Quarta','Quinta','Sexta'];
+const DLAB={Segunda:'Segunda-feira',Terça:'Terça-feira',Quarta:'Quarta-feira',Quinta:'Quinta-feira',Sexta:'Sexta-feira'};
+const CLS=['6A','6B','6C','7A','7B','8A','8B','8C','9A','9B'];
+const MORN=['6A','6B','6C','7A','7B'],AFT=['8A','8B','8C','9A','9B'];
+const DEV_TYPES=[{k:'COMP',label:'Computador',icon:'💻',color:'#3b82f6'},{k:'TAB',label:'Tablet',icon:'🖥️',color:'#8b5cf6'},{k:'CEL',label:'Celular',icon:'📱',color:'#10b981'},{k:'NOTE',label:'Notebook',icon:'💾',color:'#f59e0b'}];
+const GOAL_LABELS={plat:'Plataforma Fixa',tsp:'Tarefas SP',pesq:'Pesquisa',aval:'Avaliação',outr:'Outra'};
+
+// ── STATE ────────────────────────────────────────────────────────────
+let CW='A', activeDay='Segunda', devTypeSelected='COMP', activeDevTab='registro';
+let ROOMS=JSON.parse(localStorage.getItem('efaf_rooms')||'null')||DEFAULT_ROOMS.map(r=>({...r}));
+let DEVICES=JSON.parse(localStorage.getItem('efaf_devices')||'[]');
+let USELOG=JSON.parse(localStorage.getItem('efaf_uselog')||'[]');
+const MAX_ROOMS=5; // now 5 environments
+
+// ── PERSIST ──────────────────────────────────────────────────────────
+function save(){localStorage.setItem('efaf_rooms',JSON.stringify(ROOMS));localStorage.setItem('efaf_devices',JSON.stringify(DEVICES));localStorage.setItem('efaf_uselog',JSON.stringify(USELOG));}
+function getRoom(k){return ROOMS.find(r=>r.k===k)||{k,name:k,color:'#64748b'};}
+function getTsp(w){return w==='A'?TSP_A:TSP_B;}
+
+// ── CORE LOGIC ───────────────────────────────────────────────────────
+function sessionsByPeriod(day,period,w){
+  const fixS=FIX.filter(f=>f.d===day&&String(f.p)===String(period));
+  const tspS=getTsp(w).filter(t=>t.d===day&&String(t.p)===String(period));
+  const fixCls=new Set(fixS.map(f=>f.cl));
+  const tspF=tspS.filter(t=>!fixCls.has(t.cl));
+  return{fix:fixS,tsp:tspF,all:[...fixS,...tspF]};
+}
+
+function assignRooms(day,period,w){
+  const{fix,tsp}=sessionsByPeriod(day,period,w);
+  const assigned=[];
+  const usedRK=new Set();
+  // Fix sessions: use designated room first
+  for(const f of fix){
+    const rm=getRoom(f.room);
+    assigned.push({...f,type:'fix',rMeta:rm,conflict:false});
+    usedRK.add(f.room);
+  }
+  // TSP extras: fill from available rooms
+  const freeRooms=ROOMS.filter(r=>!usedRK.has(r.k));
+  let fi=0;
+  for(const t of tsp){
+    const rm=freeRooms[fi]||null;
+    assigned.push({...t,type:'tsp',room:rm?.k||null,rMeta:rm,conflict:!rm});
+    fi++;
+  }
+  return assigned;
+}
+
+function allConflicts(w){
+  const cf=[];
+  for(const day of DAYS)
+    for(const per of PDEF){
+      const{all}=sessionsByPeriod(day,per.id,w);
+      if(all.length>MAX_ROOMS) cf.push({day,period:per.id,time:per.time,count:all.length,excess:all.length-MAX_ROOMS,sessions:all});
+    }
+  return cf;
+}
+
+// ── WEEK ─────────────────────────────────────────────────────────────
+function setWeek(w){CW=w;document.getElementById('btnA').className='wkb'+(w==='A'?' on':'');document.getElementById('btnB').className='wkb'+(w==='B'?' on':'');renderAll();}
+
+// ── RENDER ALL ───────────────────────────────────────────────────────
+function renderAll(){
+  renderBanners();renderDayNav();renderDay(activeDay);
+  renderDistribuicao();renderAmbientes();renderAnalise();
+  populateRoomSelects();renderDevices();renderUseSummary();renderDevMap();renderHist();renderHeatmap();
+}
+
+// ── BANNER ───────────────────────────────────────────────────────────
+function mkBanner(el){
+  const isA=CW==='A';el.className='bann '+(isA?'a':'b');
+  const subs=isA?['L. Portuguesa','Redação','Inglês','Arte']:['Matemática','Ciências','Geografia','História','Tecnologia'];
+  el.innerHTML=`<span class="bann-tag">SEM ${CW}</span><div><div class="bann-t">${isA?'Semana A — Tarefas SP: L. Portuguesa · Redação · Inglês · Arte':'Semana B — Tarefas SP: Matemática · Ciências · Geografia · História · Tecnologia'}</div><div class="bann-s">Plataformas fixas ativas todos os dias · 5 ambientes disponíveis</div></div><div class="bann-pills">${subs.map(s=>`<span class="bp ${isA?'a':'b'}">${s}</span>`).join('')}</div>`;
+}
+function renderBanners(){
+  mkBanner(document.getElementById('bann1'));mkBanner(document.getElementById('bann2'));
+  document.getElementById('dist-wk').textContent=CW;
+  document.getElementById('anlWk').textContent=CW;
+  document.getElementById('hmWk').textContent=CW;
+}
+
+// ── DAY NAV ──────────────────────────────────────────────────────────
+function renderDayNav(){document.getElementById('dayNav1').innerHTML=DAYS.map(d=>`<button class="dtab ${d===activeDay?'on':''}" onclick="selectDay('${d}',this)">${DLAB[d]}</button>`).join('');}
+function selectDay(day,btn){activeDay=day;document.querySelectorAll('.dtab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderDay(day);}
+
+// ── DAY SCHEDULE ─────────────────────────────────────────────────────
+function renderDay(day){
+  const fmap={};for(const f of FIX)if(f.d===day)fmap[`${f.p}_${f.cl}`]=f;
+  const tmap={};for(const t of getTsp(CW))if(t.d===day)tmap[`${t.p}_${t.cl}`]=t;
+  const isA=CW==='A',wC=isA?'var(--sa)':'var(--sb)';
+  let h='<div class="twrap"><table class="tbl"><thead><tr><th style="min-width:64px">Período</th>';
+  CLS.forEach(cl=>{h+=`<th>${cl}</th>`;});h+='</tr></thead><tbody>';
+  for(const per of PDEF){
+    const is6a=per.id==='6a',is6b=per.id==='6b';
+    let pl=per.lb;if(per.note)pl+=`<span style="display:block;font-size:7.5px;opacity:.6">${per.note}</span>`;
+    h+=`<tr><td class="pcell">${pl}<span style="display:block;font-size:8px;font-weight:400;color:var(--muted);margin-top:1px">${per.time}</span></td>`;
+    for(const cl of CLS){
+      if(is6a&&MORN.includes(cl)){h+=`<td><div class="lunch">🍽 Almoço</div></td>`;continue;}
+      if(is6b&&AFT.includes(cl)){h+=`<td><div class="lunch">🍽 Almoço</div></td>`;continue;}
+      const key=`${per.id}_${cl}`;const fx=fmap[key],ts=tmap[key];
+      if(!fx&&!ts){h+=`<td></td>`;continue;}
+      const{all}=sessionsByPeriod(day,per.id,CW);const isConf=all.length>MAX_ROOMS;
+      let ec='ev ',tags='',label='',tc='';
+      if(fx&&ts){ec+=isA?'ev-fix-a':'ev-fix-b';label=fx.cl;tc=fx.tc;const pl2=PLAB[fx.sub];tags+=`<span class="ev-tag" style="background:${pl2.color}">${pl2.label.substring(0,7)}</span><span class="ev-tag" style="background:${wC}">+TSP</span>`;}
+      else if(fx){ec+='ev-fix';label=fx.cl;tc=fx.tc;const pl2=PLAB[fx.sub];const rm=getRoom(fx.room);tags+=`<span class="ev-tag" style="background:${pl2.color}">${pl2.label.substring(0,7)}</span><span class="ev-tag" style="background:${rm.color}">${rm.name.substring(0,5)}</span>`;}
+      else{ec+=isA?'ev-a':'ev-b';label=ts.cl;tc=ts.tc;tags+=`<span class="ev-tag" style="background:${wC}">${ts.sub.substring(0,8)}</span><span class="ev-tag" style="background:var(--slate)">Tarefas SP</span>`;}
+      if(isConf)ec+=' ev-conf';
+      h+=`<td><div class="${ec}"><div class="ev-name">${label}</div><div class="ev-tc">${tc}</div><div class="ev-tags">${tags}</div></div></td>`;
+    }
+    h+='</tr>';
+  }
+  h+='</tbody></table></div>';
+  document.getElementById('dayContent').innerHTML=h;
+}
+
+// ── DISTRIBUIÇÃO ─────────────────────────────────────────────────────
+function renderDistribuicao(){
+  let dh='<thead><tr><th>Dia</th><th>Per.</th><th>Horário</th><th>Fix.</th><th>TSP</th><th>Total</th><th>Salas</th></tr></thead><tbody>';
+  let ah='';const cf=allConflicts(CW);
+  for(const day of DAYS){let fd=true;
+    for(const per of PDEF){
+      const{fix,tsp,all}=sessionsByPeriod(day,per.id,CW);if(!all.length)continue;
+      const asgn=assignRooms(day,per.id,CW);const isC=all.length>MAX_ROOMS;
+      const dots=asgn.map(a=>`<div class="rdot" style="background:${a.rMeta?a.rMeta.color:'#dc2626'}" title="${a.rMeta?a.rMeta.name:'Sem sala'}: ${a.cl}">${a.cl.substring(1)}</div>`).join('');
+      dh+=`<tr style="${isC?'background:var(--err-bg)':''}"><td style="font-weight:600;color:var(--slate);font-size:10.5px">${fd?day:''}</td><td style="font-weight:600">${per.lb}ª</td><td style="color:var(--muted);font-family:monospace;font-size:9.5px">${per.time}</td><td style="color:var(--fix);font-weight:700">${fix.length}</td><td style="color:${CW==='A'?'var(--sa)':'var(--sb)'};font-weight:700">${tsp.length}</td><td style="font-weight:800;color:${isC?'var(--err)':'var(--navy)'}">${all.length}${isC?'⚠':''}/5</td><td><div class="rooms-dots">${dots}</div></td></tr>`;
+      fd=false;
+      ah+=`<div style="display:flex;align-items:center;gap:7px;padding:4px 0;border-bottom:1px solid var(--border2)"><span style="width:68px;font-size:10px;font-weight:600;color:var(--muted);flex-shrink:0">${day} ${per.lb}ª</span><span style="font-size:9px;color:var(--muted);width:60px;flex-shrink:0;font-family:monospace">${per.time}</span><div style="display:flex;flex-wrap:wrap;gap:2px;flex:1">${asgn.map(a=>{const bg=a.rMeta?a.rMeta.color:'#dc2626';return`<span style="background:${bg}18;border:1px solid ${bg}40;border-radius:3px;padding:2px 5px;font-size:9px;font-weight:600;color:${bg}">${a.cl}·${a.type==='fix'?(PLAB[a.sub]?.label||a.sub).substring(0,8):a.sub.substring(0,6)}·${a.rMeta?a.rMeta.name.substring(0,5):'SEM SALA'}</span>`;}).join('')}</div>${isC?`<span style="font-size:9px;font-weight:700;color:var(--err);flex-shrink:0">+${all.length-MAX_ROOMS}</span>`:''}</div>`;
+    }
+  }
+  dh+='</tbody>';
+  document.getElementById('demandTbl').innerHTML=dh;
+  document.getElementById('allocMap').innerHTML=ah||'<span style="font-size:12px;color:var(--muted)">Nenhuma sessão.</span>';
+  let cp='';
+  if(!cf.length){cp=`<div style="padding:12px;text-align:center;font-size:12px;color:var(--fix)">✓ Nenhum conflito com os 5 ambientes na Semana ${CW}!</div>`;}
+  else{for(const c of cf){const per=PDEF.find(p=>String(p.id)===String(c.period));cp+=`<div class="cfl"><div class="cfl-hd">⚠ ${c.day} · ${per?.lb}ª · ${c.time} — ${c.count}/5</div><div style="font-size:10.5px;color:var(--slate)">${c.sessions.map(s=>FIX.some(f=>f.d===s.d&&String(f.p)===String(s.p)&&f.cl===s.cl)?`🟢 ${s.cl}·${PLAB[s.sub]?.label||s.sub}·${s.tc}`:`🔵 ${s.cl}·${s.sub}·${s.tc}`).join('<br>')}</div></div>`;}}
+  document.getElementById('conflictPanel').innerHTML=cp;
+}
+
+// ── AMBIENTES ────────────────────────────────────────────────────────
+function renderAmbientes(){
+  let rh='',sh='',ph='';const tot=FIX.length;
+  for(const rm of ROOMS){
+    const rs=FIX.filter(f=>f.room===rm.k);const bD={};for(const s of rs){if(!bD[s.d])bD[s.d]=[];bD[s.d].push(s);}
+    rh+=`<div class="rcard"><div class="rhdr" style="background:${rm.color}"><div style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4)"></div>${rm.name}<span style="margin-left:auto;font-size:10.5px;opacity:.8">${rs.length}</span></div><div class="rbd">`;
+    if(!rs.length)rh+=`<div style="font-size:11px;color:var(--muted);text-align:center;padding:8px">Sem sessões fixas</div>`;
+    for(const[d,slots] of Object.entries(bD)){rh+=`<div style="font-size:9px;font-weight:700;color:${rm.color};text-transform:uppercase;letter-spacing:.3px;margin:5px 0 3px">${d}</div>`;for(const s of slots){const pd=PDEF.find(p=>String(p.id)===String(s.p));const pl=PLAB[s.sub];rh+=`<div class="rev" style="background:${pl.color}10;border-color:${pl.color}25"><div class="rev-hd">${s.cl}·${pd?.lb}ª <span style="font-family:monospace;font-size:8.5px;color:var(--muted)">${pd?.time}</span></div><div class="rev-sub">${s.tc}·<span style="color:${pl.color};font-weight:600">${pl.label}</span></div></div>`;}}
+    rh+='</div></div>';
+    const pct=Math.round((rs.length/Math.max(tot,1))*100);sh+=`<div class="pr"><div class="prh"><span class="prl" style="color:${rm.color}">${rm.name}</span><span class="prv">${rs.length}</span></div><div class="prb"><div class="prf" style="width:${pct}%;background:${rm.color}"></div></div></div>`;
+  }
+  document.getElementById('roomCards').innerHTML=rh;document.getElementById('roomStats').innerHTML=sh;
+  for(const[k,pl] of Object.entries(PLAB)){const n=FIX.filter(f=>f.sub===k).length;const pct=Math.round((n/tot)*100);ph+=`<div class="pr"><div class="prh"><span class="prl">${pl.name}</span><span class="prv">${n}</span></div><div class="prb"><div class="prf" style="width:${pct}%;background:${pl.color}"></div></div></div>`;}
+  document.getElementById('platStats').innerHTML=ph;
+}
+
+// ── SETTINGS MODAL ───────────────────────────────────────────────────
+function openSettings(){
+  let h='';
+  ROOMS.forEach((rm,i)=>{h+=`<div class="field-row"><div class="field"><label>${rm.k}</label><input type="text" id="rn_${i}" value="${rm.name}" placeholder="Nome da sala"></div><div class="field" style="flex:0 0 80px"><label>Cor</label><input type="color" id="rc_${i}" value="${rm.color}" style="height:36px;cursor:pointer;border-radius:6px;padding:2px"></div></div>`;});
+  document.getElementById('roomFields').innerHTML=h;
+  document.getElementById('settingsModal').classList.add('open');
+}
+function closeSettings(){document.getElementById('settingsModal').classList.remove('open');}
+function saveSettings(){
+  ROOMS.forEach((rm,i)=>{rm.name=document.getElementById(`rn_${i}`).value||rm.name;rm.color=document.getElementById(`rc_${i}`).value;});
+  save();closeSettings();renderAll();
+}
+
+// ── DEVICE MANAGEMENT ────────────────────────────────────────────────
+function populateRoomSelects(){
+  const opts=ROOMS.map(r=>`<option value="${r.k}">${r.name}</option>`).join('');
+  ['devRoom','useRoom'].forEach(id=>{const el=document.getElementById(id);if(el){const prev=el.value;el.innerHTML='<option value="">— selecione —</option>'+opts;if(prev)el.value=prev;}});
+}
+
+function selDevType(k,btn){devTypeSelected=k;document.querySelectorAll('.dev-type-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
+
+function addDevice(){
+  const label=document.getElementById('devLabel').value.trim();
+  const room=document.getElementById('devRoom').value;
+  const qty=parseInt(document.getElementById('devQty').value)||1;
+  const obs=document.getElementById('devObs').value.trim();
+  if(!label){alert('Informe uma identificação.');return;}
+  DEVICES.push({id:'d'+Date.now(),type:devTypeSelected,label,room,qty,obs,addedAt:Date.now()});
+  save();
+  document.getElementById('devLabel').value='';document.getElementById('devObs').value='';document.getElementById('devQty').value='1';
+  renderDevices();renderDevMap();renderAnalise();
+}
+
+function delDevice(id){if(!confirm('Remover este dispositivo?'))return;DEVICES=DEVICES.filter(d=>d.id!==id);save();renderDevices();renderDevMap();renderAnalise();}
+
+function renderDevices(){
+  const el=document.getElementById('devList');document.getElementById('devCount').textContent=`${DEVICES.length} dispositivos`;
+  if(!DEVICES.length){el.innerHTML='<div style="text-align:center;font-size:12px;color:var(--muted);padding:20px">Nenhum dispositivo cadastrado ainda.</div>';return;}
+  el.innerHTML=DEVICES.map(d=>{
+    const dt=DEV_TYPES.find(t=>t.k===d.type)||DEV_TYPES[0];
+    const rm=getRoom(d.room);
+    return`<div class="dev-item"><div class="dev-icon">${dt.icon}</div><div style="flex:1"><div style="font-weight:700;font-size:12.5px;color:var(--navy)">${d.label}</div><div style="font-size:11px;color:var(--muted)">Qtd: ${d.qty} · <span style="color:${rm.color}">${rm.name||'Sem sala'}</span>${d.obs?` · ${d.obs}`:''}</div></div><div class="dev-badge" style="background:${dt.color}20;color:${dt.color}">${dt.label}</div><button class="btn btn-red btn-sm" onclick="delDevice('${d.id}')">✕</button></div>`;
+  }).join('');
+}
+
+// ── REGISTER USAGE ────────────────────────────────────────────────────
+function registerUsage(){
+  const devType=document.getElementById('useDevType').value;
+  const qty=parseInt(document.getElementById('useQty').value)||1;
+  const room=document.getElementById('useRoom').value;
+  const cls=document.getElementById('useCls').value;
+  const period=document.getElementById('usePer').value;
+  const day=document.getElementById('useDay').value;
+  const wk=document.getElementById('useWk').value;
+  const teacher=document.getElementById('useTeacher').value.trim();
+  const sub=document.getElementById('useSub').value.trim();
+  const goal=document.getElementById('useGoal').value;
+  if(!cls||!room){alert('Selecione a turma e o ambiente.');return;}
+  USELOG.unshift({id:'u'+Date.now(),devType,qty,room,cls,period,day,wk,teacher,sub,goal,ts:Date.now()});
+  save();renderUseSummary();renderHist();renderHeatmap();renderAnalise();
+  alert('✓ Uso registrado com sucesso!');
+}
+
+function renderUseSummary(){
+  const el=document.getElementById('useSummary');if(!el)return;
+  const tot=USELOG.length;const devCounts={};USELOG.forEach(u=>{devCounts[u.devType]=(devCounts[u.devType]||0)+u.qty;});
+  const roomCounts={};USELOG.forEach(u=>{roomCounts[u.room]=(roomCounts[u.room]||0)+1;});
+  let h='';
+  if(!tot){h='<div style="text-align:center;font-size:12px;color:var(--muted);padding:20px">Nenhum uso registrado ainda.</div>';}
+  else{
+    h+=`<div style="font-size:12px;font-weight:600;margin-bottom:10px;color:var(--slate)">${tot} sessão(ões) registrada(s)</div>`;
+    DEV_TYPES.forEach(dt=>{if(!devCounts[dt.k])return;h+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:18px">${dt.icon}</span><div style="flex:1"><div style="font-size:11.5px;font-weight:600">${dt.label}</div><div style="font-size:10.5px;color:var(--muted)">${devCounts[dt.k]} unidade(s) registrada(s)</div></div></div>`;});
+    h+=`<div style="border-top:1px solid var(--border);margin-top:10px;padding-top:10px;font-size:11px;color:var(--muted)">`;
+    Object.entries(roomCounts).forEach(([k,n])=>{const rm=getRoom(k);h+=`<div style="color:${rm.color};font-weight:600">${rm.name}: ${n} sessão(ões)</div>`;});
+    h+='</div>';
+  }
+  el.innerHTML=h;
+}
+
+// ── DEV MAP ───────────────────────────────────────────────────────────
+function renderDevMap(){
+  const el=document.getElementById('devMapView');if(!el)return;
+  let h='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">';
+  for(const rm of ROOMS){
+    const rDevs=DEVICES.filter(d=>d.room===rm.k);
+    const lastUse=USELOG.filter(u=>u.room===rm.k).slice(0,3);
+    h+=`<div class="dev-map-room" style="border-color:${rm.color}40;background:${rm.color}08"><div style="font-size:12px;font-weight:700;color:${rm.color};margin-bottom:6px;display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:${rm.color}"></div>${rm.name}<span style="margin-left:auto;font-size:10px;background:${rm.color}20;color:${rm.color};border-radius:10px;padding:1px 7px">${rDevs.length} tipos</span></div>`;
+    if(!rDevs.length){h+=`<div style="font-size:11px;color:var(--muted);padding:4px">Nenhum dispositivo cadastrado nesta sala.</div>`;}
+    else{h+='<div class="dev-map-devices">';rDevs.forEach(d=>{const dt=DEV_TYPES.find(t=>t.k===d.type)||DEV_TYPES[0];h+=`<div class="dev-chip" style="background:${dt.color}15;color:${dt.color};border:1px solid ${dt.color}30" onclick="showDevDetail('${d.id}')">${dt.icon} ${d.label} ×${d.qty}</div>`;});h+='</div>';}
+    if(lastUse.length){h+=`<div style="margin-top:8px;border-top:1px solid ${rm.color}20;padding-top:6px"><div style="font-size:9.5px;font-weight:600;color:var(--muted);margin-bottom:4px">ÚLTIMOS USOS</div>`;lastUse.forEach(u=>{const dt=DEV_TYPES.find(t=>t.k===u.devType)||DEV_TYPES[0];h+=`<div style="font-size:10px;color:var(--slate);margin-bottom:2px">${dt.icon} ${u.cls}·${u.day}·${u.period}ª·${GOAL_LABELS[u.goal]||u.goal}</div>`;});h+='</div>';}
+    h+='</div>';
+  }
+  h+='</div>';
+  el.innerHTML=h;
+}
+
+function showDevDetail(id){
+  const d=DEVICES.find(x=>x.id===id);if(!d)return;
+  const dt=DEV_TYPES.find(t=>t.k===d.type)||DEV_TYPES[0];const rm=getRoom(d.room);
+  const uses=USELOG.filter(u=>u.room===d.room&&u.devType===d.type).slice(0,10);
+  document.getElementById('devModalTitle').innerHTML=`${dt.icon} ${d.label} <button class="modal-close" onclick="closeDevModal()">✕</button>`;
+  let h=`<div style="margin-bottom:14px;padding:12px;background:${dt.color}10;border-radius:8px;border:1px solid ${dt.color}30"><div style="font-size:13px;font-weight:700;margin-bottom:4px">${d.label}</div><div style="font-size:12px;color:var(--slate)">${dt.label} · Qtd: ${d.qty} · <span style="color:${rm.color}">${rm.name}</span>${d.obs?` · ${d.obs}`:''}</div></div>`;
+  h+=`<div style="font-size:12px;font-weight:600;margin-bottom:8px">Histórico de uso neste ambiente (${uses.length}):</div>`;
+  if(!uses.length){h+='<div style="font-size:12px;color:var(--muted)">Nenhum uso registrado ainda.</div>';}
+  else{uses.forEach(u=>{const dtt=DEV_TYPES.find(t=>t.k===u.devType)||DEV_TYPES[0];const rmm=getRoom(u.room);h+=`<div style="padding:7px 0;border-bottom:1px solid var(--border2);font-size:11.5px"><div style="font-weight:600">${u.cls} · ${u.day} · ${u.period}ª · Sem.${u.wk}</div><div style="color:var(--muted)">${u.teacher?u.teacher+' · ':''}${u.sub||'—'} · ${GOAL_LABELS[u.goal]||u.goal} · ${u.qty} unid.</div></div>`;});}
+  document.getElementById('devModalBody').innerHTML=h;
+  document.getElementById('devModal').classList.add('open');
+}
+function closeDevModal(){document.getElementById('devModal').classList.remove('open');}
+
+// ── HISTÓRICO ─────────────────────────────────────────────────────────
+function renderHist(){
+  const el=document.getElementById('usageLog');if(!el)return;
+  const filt=document.getElementById('histFilter')?.value||'';
+  const logs=filt?USELOG.filter(u=>u.devType===filt):USELOG;
+  if(!logs.length){el.innerHTML='<div style="text-align:center;font-size:12px;color:var(--muted);padding:20px">Nenhum registro ainda. Use a aba "Registrar Uso" para registrar sessões.</div>';return;}
+  el.innerHTML=logs.map(u=>{
+    const dt=DEV_TYPES.find(t=>t.k===u.devType)||DEV_TYPES[0];
+    const rm=getRoom(u.room);
+    const date=new Date(u.ts).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+    return`<div class="ulog-row"><div class="ulog-time">${date}</div><div class="ulog-icon">${dt.icon}</div><div class="ulog-info"><div class="ulog-title">${u.cls} · ${dt.label} ×${u.qty} · <span style="color:${rm.color}">${rm.name}</span></div><div class="ulog-sub">${u.day} · ${u.period}ª · Sem.${u.wk}${u.teacher?' · '+u.teacher:''}${u.sub?' · '+u.sub:''} · <em>${GOAL_LABELS[u.goal]||u.goal}</em></div></div><button onclick="delUsage('${u.id}')" style="border:none;background:none;cursor:pointer;color:var(--muted);font-size:14px;padding:2px 5px;border-radius:3px" title="Remover">✕</button></div>`;
+  }).join('');
+}
+
+function delUsage(id){USELOG=USELOG.filter(u=>u.id!==id);save();renderHist();renderHeatmap();renderAnalise();}
+function clearUsage(){if(!confirm('Limpar todo o histórico?'))return;USELOG=[];save();renderHist();renderHeatmap();renderAnalise();}
+
+// ── HEATMAP ───────────────────────────────────────────────────────────
+function renderHeatmap(){
+  const el=document.getElementById('tl-grid');if(!el)return;
+  const wkF=CW;
+  const dayUse={};
+  USELOG.filter(u=>u.wk===wkF).forEach(u=>{const k=`${u.day}_${u.period}`;dayUse[k]=(dayUse[k]||0)+u.qty;});
+  const maxUse=Math.max(...Object.values(dayUse),1);
+  let h='<div class="tl-hd"></div>';
+  DAYS.forEach(d=>{h+=`<div class="tl-hd" style="font-size:10px;font-weight:700;color:var(--navy)">${d.substring(0,3)}</div>`;});
+  PDEF.forEach(per=>{
+    h+=`<div class="tl-per" style="font-size:10px"><div><div style="font-weight:700">${per.lb}ª</div><div style="font-size:8px;color:var(--muted)">${per.time.split('–')[0]}</div></div></div>`;
+    DAYS.forEach(d=>{
+      const k=`${d}_${per.id}`;const n=dayUse[k]||0;
+      const pct=n/maxUse;
+      const bg=n===0?'var(--border2)':`rgba(59,130,246,${0.15+pct*0.75})`;
+      const tc=pct>0.6?'#fff':'var(--navy)';
+      h+=`<div class="tl-cell" style="background:${bg};color:${tc};text-align:center;display:flex;align-items:center;justify-content:center;flex-direction:column" title="${d} ${per.lb}ª: ${n} dispositivos">${n>0?`<span style="font-weight:700;font-size:11px">${n}</span><span style="font-size:8px">disp.</span>`:''}</div>`;
+    });
+  });
+  el.innerHTML=h;
+}
+
+// ── DEVICE TAB ────────────────────────────────────────────────────────
+function showDevTab(tab,btn){
+  activeDevTab=tab;
+  ['registro','uso','mapa','hist'].forEach(t=>{const el=document.getElementById(`dtab-${t}`);if(el)el.style.display=t===tab?'block':'none';});
+  document.querySelectorAll('[id^="dstab-"]').forEach(b=>b.classList.remove('on'));
+  document.getElementById(`dstab-${tab==='hist'?'hist':tab==='mapa'?'mapa':tab==='uso'?'uso':'reg'}`)?.classList.add('on');
+  if(tab==='mapa')renderDevMap();if(tab==='hist'){renderHist();renderHeatmap();}
+}
+
+// ── ANÁLISE ───────────────────────────────────────────────────────────
+function renderAnalise(){
+  const cf=allConflicts(CW);const nFix=FIX.length;const nTsp=getTsp(CW).length;const nDev=DEVICES.reduce((s,d)=>s+d.qty,0);
+  document.getElementById('statsRow').innerHTML=`
+    <div class="stat"><div class="sv">${nFix}</div><div class="sl">Sessões Fixas/sem.</div></div>
+    <div class="stat"><div class="sv">${nTsp}</div><div class="sl">Tarefas SP Sem.${CW}</div></div>
+    <div class="stat"><div class="sv">${cf.length}</div><div class="sl">Conflitos (>5 salas)</div></div>
+    <div class="stat"><div class="sv">${DEVICES.length}</div><div class="sl">Tipos de Dispositivo</div></div>
+    <div class="stat"><div class="sv">${nDev}</div><div class="sl">Total de Unidades</div></div>`;
+
+  // Devices by type
+  let dts='';
+  DEV_TYPES.forEach(dt=>{
+    const devs=DEVICES.filter(d=>d.type===dt.k);
+    const qty=devs.reduce((s,d)=>s+d.qty,0);
+    const uses=USELOG.filter(u=>u.devType===dt.k).length;
+    dts+=`<div class="dev-stat-card"><div class="dev-stat-icon">${dt.icon}</div><div><div class="dev-stat-v" style="color:${dt.color}">${qty}</div><div class="dev-stat-l">${dt.label}(s)</div><div style="font-size:10px;color:var(--muted);margin-top:2px">${devs.length} cadastro(s) · ${uses} uso(s)</div></div></div>`;
+  });
+  document.getElementById('devTypeStats').innerHTML=dts;
+
+  // Sessions per class
+  const byCl={};CLS.forEach(c=>byCl[c]=0);FIX.forEach(f=>{if(byCl[f.cl]!==undefined)byCl[f.cl]++;});
+  const maxCl=Math.max(...Object.values(byCl),1);
+  document.getElementById('classFix').innerHTML=CLS.map(cl=>{const n=byCl[cl];const pct=Math.round((n/maxCl)*100);return`<div class="pr"><div class="prh"><span class="prl">Turma ${cl}</span><span class="prv">${n}</span></div><div class="prb"><div class="prf" style="width:${pct}%;background:var(--navy)"></div></div></div>`;}).join('');
+
+  // Devices by room
+  let dbr='';
+  ROOMS.forEach(rm=>{const n=DEVICES.filter(d=>d.room===rm.k).reduce((s,d)=>s+d.qty,0);const pct=Math.round((n/Math.max(nDev,1))*100);dbr+=`<div class="pr"><div class="prh"><span class="prl" style="color:${rm.color}">${rm.name}</span><span class="prv">${n}</span></div><div class="prb"><div class="prf" style="width:${pct}%;background:${rm.color}"></div></div></div>`;});
+  document.getElementById('devByRoom').innerHTML=dbr||'<div style="font-size:12px;color:var(--muted)">Cadastre dispositivos para ver a distribuição.</div>';
+
+  // Rotation table
+  const tspDef=[{sub:'L. Portuguesa',icon:'📝',week:'A'},{sub:'Redação e Leitura',icon:'✍️',week:'A'},{sub:'Inglês',icon:'🌐',week:'A'},{sub:'Arte',icon:'🎨',week:'A'},{sub:'Matemática',icon:'🔢',week:'B'},{sub:'Ciências',icon:'🔬',week:'B'},{sub:'Geografia',icon:'🌍',week:'B'},{sub:'História',icon:'📜',week:'B'},{sub:'Tecnologia',icon:'💻',week:'B'}];
+  let rt=`<table class="rott"><thead><tr><th>Componente</th><th style="text-align:center;color:var(--sa)">Semana A</th><th style="text-align:center;color:var(--sb)">Semana B</th></tr></thead><tbody>`;
+  tspDef.forEach(t=>{const inA=t.week==='A';const hl=CW==='A'&&inA||CW==='B'&&!inA;rt+=`<tr style="${hl?`background:${CW==='A'?'var(--sa-bg)':'var(--sb-bg)'}`:''}""><td style="font-weight:600">${t.icon} ${t.sub}</td><td style="text-align:center;font-weight:${inA?700:400};color:${inA?'var(--sa)':'var(--muted)'}">${inA?'💻 Tarefas SP':'📖 Instrução'}</td><td style="text-align:center;font-weight:${!inA?700:400};color:${!inA?'var(--sb)':'var(--muted)'}">${!inA?'💻 Tarefas SP':'📖 Instrução'}</td></tr>`;});
+  rt+='</tbody></table>';
+  document.getElementById('rotTable').innerHTML=rt;
+}
+
+// ── TAB / EXPORT / INIT ───────────────────────────────────────────────
+function goTab(name,btn){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));document.getElementById('sec-'+name).classList.add('on');btn.classList.add('on');}
+function exportHTML(){const b=new Blob([document.documentElement.outerHTML],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`EFAF_Plataformas_${new Date().toISOString().slice(0,10)}.html`;a.click();}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('topDate').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'});
+  populateRoomSelects();renderAll();
+});
+</script>
+</body>
+</html>
